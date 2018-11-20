@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <style>
+        #map {
+            width: 592px;
+            height: 555px;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/proj4.js"></script>
+        <script src="js/proj4leaflet.js"></script>
+        <script src="data/NumberofChildrenperHDB_1.js"></script>
+        <script src="data/Childcare_2.js"></script>
+        <script src="data/PrivateProperty_3.js"></script>
+        <script src="data/IndustrialBuildings_4.js"></script>
+        <script>
+        var crs = new L.Proj.CRS('EPSG:3414', '+proj=tmerc +lat_0=1.366666666666667 +lon_0=103.8333333333333 +k=1 +x_0=28001.642 +y_0=38744.572 +ellps=WGS84 +units=m +no_defs', {
+            resolutions: [2800, 1400, 700, 350, 175, 84, 42, 21, 11.2, 5.6, 2.8, 1.4, 0.7, 0.35, 0.14, 0.07],
+        });
+        var map = L.map('map', {
+            crs: crs,
+            continuousWorld: false,
+            worldCopyJump: false, 
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[1.3315986603142127,103.86180445133918],[1.3868014596747535,103.92032298918629]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+            map.setMaxBounds(map.getBounds());
+        }
+        var img_ChildcareAccessibility_0 = 'data/ChildcareAccessibility_0.png';
+        var img_bounds_ChildcareAccessibility_0 = [[1.3335595984284545,103.8731087819584],[1.3886941545771296,103.9100457027193]];
+        var overlay_ChildcareAccessibility_0 = new L.imageOverlay(img_ChildcareAccessibility_0, img_bounds_ChildcareAccessibility_0);
+        bounds_group.addLayer(overlay_ChildcareAccessibility_0);
+        map.addLayer(overlay_ChildcareAccessibility_0);
+        function pop_NumberofChildrenperHDB_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>osm_id</strong><br />' + (feature.properties['osm_id'] !== null ? Autolinker.link(String(feature.properties['osm_id'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>name</strong><br />' + (feature.properties['name'] !== null ? Autolinker.link(String(feature.properties['name'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Subzone</strong><br />' + (feature.properties['Subzone'] !== null ? Autolinker.link(String(feature.properties['Subzone'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>ONETOTWO_R</strong><br />' + (feature.properties['ONETOTWO_R'] !== null ? Autolinker.link(String(feature.properties['ONETOTWO_R'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>THREE_RM</strong><br />' + (feature.properties['THREE_RM'] !== null ? Autolinker.link(String(feature.properties['THREE_RM'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>FOUR_RM</strong><br />' + (feature.properties['FOUR_RM'] !== null ? Autolinker.link(String(feature.properties['FOUR_RM'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>FIVE_RM</strong><br />' + (feature.properties['FIVE_RM'] !== null ? Autolinker.link(String(feature.properties['FIVE_RM'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>X-ADDR</strong><br />' + (feature.properties['X-ADDR'] !== null ? Autolinker.link(String(feature.properties['X-ADDR'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Y-ADDR</strong><br />' + (feature.properties['Y-ADDR'] !== null ? Autolinker.link(String(feature.properties['Y-ADDR'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>SHAPE_Leng</strong><br />' + (feature.properties['SHAPE_Leng'] !== null ? Autolinker.link(String(feature.properties['SHAPE_Leng'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>SHAPE_Area</strong><br />' + (feature.properties['SHAPE_Area'] !== null ? Autolinker.link(String(feature.properties['SHAPE_Area'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>TOTAL_POPU</strong><br />' + (feature.properties['TOTAL_POPU'] !== null ? Autolinker.link(String(feature.properties['TOTAL_POPU'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>AGE_0-4</strong><br />' + (feature.properties['AGE_0-4'] !== null ? Autolinker.link(String(feature.properties['AGE_0-4'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>AGE_5-9</strong><br />' + (feature.properties['AGE_5-9'] !== null ? Autolinker.link(String(feature.properties['AGE_5-9'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>AGE_10-14</strong><br />' + (feature.properties['AGE_10-14'] !== null ? Autolinker.link(String(feature.properties['AGE_10-14'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>AGE_15-19</strong><br />' + (feature.properties['AGE_15-19'] !== null ? Autolinker.link(String(feature.properties['AGE_15-19'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>AGE_20-24</strong><br />' + (feature.properties['AGE_20-24'] !== null ? Autolinker.link(String(feature.properties['AGE_20-24'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>AGE_25-29</strong><br />' + (feature.properties['AGE_25-29'] !== null ? Autolinker.link(String(feature.properties['AGE_25-29'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>AGE_30-34</strong><br />' + (feature.properties['AGE_30-34'] !== null ? Autolinker.link(String(feature.properties['AGE_30-34'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>AGE_35-39</strong><br />' + (feature.properties['AGE_35-39'] !== null ? Autolinker.link(String(feature.properties['AGE_35-39'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>AGE_40-44</strong><br />' + (feature.properties['AGE_40-44'] !== null ? Autolinker.link(String(feature.properties['AGE_40-44'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>AGE_45-49</strong><br />' + (feature.properties['AGE_45-49'] !== null ? Autolinker.link(String(feature.properties['AGE_45-49'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>AGE_50-54</strong><br />' + (feature.properties['AGE_50-54'] !== null ? Autolinker.link(String(feature.properties['AGE_50-54'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>AGE_55-59</strong><br />' + (feature.properties['AGE_55-59'] !== null ? Autolinker.link(String(feature.properties['AGE_55-59'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>AGE_60-64</strong><br />' + (feature.properties['AGE_60-64'] !== null ? Autolinker.link(String(feature.properties['AGE_60-64'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>AGE_65-69</strong><br />' + (feature.properties['AGE_65-69'] !== null ? Autolinker.link(String(feature.properties['AGE_65-69'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>AGE_70-74</strong><br />' + (feature.properties['AGE_70-74'] !== null ? Autolinker.link(String(feature.properties['AGE_70-74'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>AGE_75-79</strong><br />' + (feature.properties['AGE_75-79'] !== null ? Autolinker.link(String(feature.properties['AGE_75-79'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>AGE_80-84</strong><br />' + (feature.properties['AGE_80-84'] !== null ? Autolinker.link(String(feature.properties['AGE_80-84'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>AGE_OVER85</strong><br />' + (feature.properties['AGE_OVER85'] !== null ? Autolinker.link(String(feature.properties['AGE_OVER85'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>type</strong><br />' + (feature.properties['type'] !== null ? Autolinker.link(String(feature.properties['type'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>TOTAL_RMS</strong><br />' + (feature.properties['TOTAL_RMS'] !== null ? Autolinker.link(String(feature.properties['TOTAL_RMS'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Below9Yrs</strong><br />' + (feature.properties['Below9Yrs'] !== null ? Autolinker.link(String(feature.properties['Below9Yrs'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>NUM_CHILD</strong><br />' + (feature.properties['NUM_CHILD'] !== null ? Autolinker.link(String(feature.properties['NUM_CHILD'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>NUM_HDB</strong><br />' + (feature.properties['NUM_HDB'] !== null ? Autolinker.link(String(feature.properties['NUM_HDB'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_NumberofChildrenperHDB_1_0(feature) {
+            if (feature.properties['NUM_CHILD'] >= 0.000000 && feature.properties['NUM_CHILD'] <= 25.000000 ) {
+                return {
+                pane: 'pane_NumberofChildrenperHDB_1',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,226,215,1.0)',
+            }
+            }
+            if (feature.properties['NUM_CHILD'] >= 25.000000 && feature.properties['NUM_CHILD'] <= 50.000000 ) {
+                return {
+                pane: 'pane_NumberofChildrenperHDB_1',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,164,135,1.0)',
+            }
+            }
+            if (feature.properties['NUM_CHILD'] >= 50.000000 && feature.properties['NUM_CHILD'] <= 75.000000 ) {
+                return {
+                pane: 'pane_NumberofChildrenperHDB_1',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(252,136,106,1.0)',
+            }
+            }
+            if (feature.properties['NUM_CHILD'] >= 75.000000 && feature.properties['NUM_CHILD'] <= 100.000000 ) {
+                return {
+                pane: 'pane_NumberofChildrenperHDB_1',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(248,96,70,1.0)',
+            }
+            }
+            if (feature.properties['NUM_CHILD'] >= 100.000000 && feature.properties['NUM_CHILD'] <= 125.000000 ) {
+                return {
+                pane: 'pane_NumberofChildrenperHDB_1',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(233,44,33,1.0)',
+            }
+            }
+            if (feature.properties['NUM_CHILD'] >= 125.000000 && feature.properties['NUM_CHILD'] <= 150.000000 ) {
+                return {
+                pane: 'pane_NumberofChildrenperHDB_1',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(189,0,25,1.0)',
+            }
+            }
+        }
+        map.createPane('pane_NumberofChildrenperHDB_1');
+        map.getPane('pane_NumberofChildrenperHDB_1').style.zIndex = 401;
+        map.getPane('pane_NumberofChildrenperHDB_1').style['mix-blend-mode'] = 'normal';
+        var layer_NumberofChildrenperHDB_1 = new L.geoJson(json_NumberofChildrenperHDB_1, {
+            attribution: '',
+            pane: 'pane_NumberofChildrenperHDB_1',
+            onEachFeature: pop_NumberofChildrenperHDB_1,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_NumberofChildrenperHDB_1_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_NumberofChildrenperHDB_1);
+        map.addLayer(layer_NumberofChildrenperHDB_1);
+        function pop_Childcare_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>OBJECTID</strong><br />' + (feature.properties['OBJECTID'] !== null ? Autolinker.link(String(feature.properties['OBJECTID'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>ADDRESSBLO</strong><br />' + (feature.properties['ADDRESSBLO'] !== null ? Autolinker.link(String(feature.properties['ADDRESSBLO'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>ADDRESSBUI</strong><br />' + (feature.properties['ADDRESSBUI'] !== null ? Autolinker.link(String(feature.properties['ADDRESSBUI'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>ADDRESSPOS</strong><br />' + (feature.properties['ADDRESSPOS'] !== null ? Autolinker.link(String(feature.properties['ADDRESSPOS'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>ADDRESSSTR</strong><br />' + (feature.properties['ADDRESSSTR'] !== null ? Autolinker.link(String(feature.properties['ADDRESSSTR'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>ADDRESSTYP</strong><br />' + (feature.properties['ADDRESSTYP'] !== null ? Autolinker.link(String(feature.properties['ADDRESSTYP'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>DESCRIPTIO</strong><br />' + (feature.properties['DESCRIPTIO'] !== null ? Autolinker.link(String(feature.properties['DESCRIPTIO'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>HYPERLINK</strong><br />' + (feature.properties['HYPERLINK'] !== null ? Autolinker.link(String(feature.properties['HYPERLINK'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>LANDXADDRE</strong><br />' + (feature.properties['LANDXADDRE'] !== null ? Autolinker.link(String(feature.properties['LANDXADDRE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>LANDYADDRE</strong><br />' + (feature.properties['LANDYADDRE'] !== null ? Autolinker.link(String(feature.properties['LANDYADDRE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>NAME</strong><br />' + (feature.properties['NAME'] !== null ? Autolinker.link(String(feature.properties['NAME'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>PHOTOURL</strong><br />' + (feature.properties['PHOTOURL'] !== null ? Autolinker.link(String(feature.properties['PHOTOURL'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>ADDRESSFLO</strong><br />' + (feature.properties['ADDRESSFLO'] !== null ? Autolinker.link(String(feature.properties['ADDRESSFLO'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>INC_CRC</strong><br />' + (feature.properties['INC_CRC'] !== null ? Autolinker.link(String(feature.properties['INC_CRC'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>FMEL_UPD_D</strong><br />' + (feature.properties['FMEL_UPD_D'] !== null ? Autolinker.link(String(feature.properties['FMEL_UPD_D'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>ADDRESSUNI</strong><br />' + (feature.properties['ADDRESSUNI'] !== null ? Autolinker.link(String(feature.properties['ADDRESSUNI'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>X_ADDR</strong><br />' + (feature.properties['X_ADDR'] !== null ? Autolinker.link(String(feature.properties['X_ADDR'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Y_ADDR</strong><br />' + (feature.properties['Y_ADDR'] !== null ? Autolinker.link(String(feature.properties['Y_ADDR'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>POI_CODE</strong><br />' + (feature.properties['POI_CODE'] !== null ? Autolinker.link(String(feature.properties['POI_CODE'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Childcare_2_0() {
+            return {
+                pane: 'pane_Childcare_2',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/education_nursery.svg',
+            iconSize: [17.099999999999998, 17.099999999999998]
+        }),
+            }
+        }
+        map.createPane('pane_Childcare_2');
+        map.getPane('pane_Childcare_2').style.zIndex = 402;
+        map.getPane('pane_Childcare_2').style['mix-blend-mode'] = 'normal';
+        var layer_Childcare_2 = new L.geoJson(json_Childcare_2, {
+            attribution: '',
+            pane: 'pane_Childcare_2',
+            onEachFeature: pop_Childcare_2,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.marker(latlng, style_Childcare_2_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Childcare_2);
+        map.addLayer(layer_Childcare_2);
+        function pop_PrivateProperty_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>osm_id</strong><br />' + (feature.properties['osm_id'] !== null ? Autolinker.link(String(feature.properties['osm_id'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>name</strong><br />' + (feature.properties['name'] !== null ? Autolinker.link(String(feature.properties['name'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['type'] !== null ? Autolinker.link(String(feature.properties['type'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_PrivateProperty_3_0() {
+            return {
+                pane: 'pane_PrivateProperty_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(45,88,33,1.0)',
+            }
+        }
+        map.createPane('pane_PrivateProperty_3');
+        map.getPane('pane_PrivateProperty_3').style.zIndex = 403;
+        map.getPane('pane_PrivateProperty_3').style['mix-blend-mode'] = 'normal';
+        var layer_PrivateProperty_3 = new L.geoJson(json_PrivateProperty_3, {
+            attribution: '',
+            pane: 'pane_PrivateProperty_3',
+            onEachFeature: pop_PrivateProperty_3,
+            style: style_PrivateProperty_3_0,
+        });
+        bounds_group.addLayer(layer_PrivateProperty_3);
+        map.addLayer(layer_PrivateProperty_3);
+        function pop_IndustrialBuildings_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>osm_id</strong><br />' + (feature.properties['osm_id'] !== null ? Autolinker.link(String(feature.properties['osm_id'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>name</strong><br />' + (feature.properties['name'] !== null ? Autolinker.link(String(feature.properties['name'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>type</strong><br />' + (feature.properties['type'] !== null ? Autolinker.link(String(feature.properties['type'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_IndustrialBuildings_4_0() {
+            return {
+                pane: 'pane_IndustrialBuildings_4',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(82,90,70,1.0)',
+            }
+        }
+        map.createPane('pane_IndustrialBuildings_4');
+        map.getPane('pane_IndustrialBuildings_4').style.zIndex = 404;
+        map.getPane('pane_IndustrialBuildings_4').style['mix-blend-mode'] = 'normal';
+        var layer_IndustrialBuildings_4 = new L.geoJson(json_IndustrialBuildings_4, {
+            attribution: '',
+            pane: 'pane_IndustrialBuildings_4',
+            onEachFeature: pop_IndustrialBuildings_4,
+            style: style_IndustrialBuildings_4_0,
+        });
+        bounds_group.addLayer(layer_IndustrialBuildings_4);
+        map.addLayer(layer_IndustrialBuildings_4);
+        setBounds();
+        L.ImageOverlay.include({
+            getBounds: function () {
+                return this._bounds;
+            }
+        });
+        </script>
+    </body>
+</html>
